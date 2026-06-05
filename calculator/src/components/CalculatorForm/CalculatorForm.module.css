@@ -1,0 +1,89 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-beige-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+
+.legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-cobalt-dark);
+  margin-bottom: var(--space-1);
+}
+
+/* Two columns on wider screens, single column on mobile. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  min-height: 3.0em;
+}
+
+.input,
+.select {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-beige-dark);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-cobalt);
+  box-shadow: 0 0 0 3px var(--color-cobalt-soft);
+}
+
+.invalid {
+  border-color: var(--color-error);
+}
+
+
+.errorText {
+  font-size: 0.8rem;
+  color: var(--color-error);
+}
+
+.submit {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-cobalt);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.submit:hover {
+  background: var(--color-cobalt-dark);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
