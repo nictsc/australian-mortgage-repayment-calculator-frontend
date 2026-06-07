@@ -8,13 +8,20 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import type { ScheduleRow } from '../../types/mortgage'
+import type { RepaymentFrequency, ScheduleRow } from '../../types/mortgage'
 import { formatAUD, toNumber } from '../../utils/money'
 import { findPhaseTransitions } from '../../utils/schedule'
 import styles from './BalanceChart.module.css'
 
+const X_AXIS_LABEL: Record<RepaymentFrequency, string> = {
+  weekly: 'Period in weeks',
+  fortnightly: 'Period in fortnights',
+  monthly: 'Period in months',
+}
+
 interface Props {
   schedule: ScheduleRow[]
+  frequency: RepaymentFrequency
 }
 
 // Short axis labels: 400000 -> "$400k".
@@ -22,7 +29,7 @@ function compactAUD(value: number): string {
   return `$${Math.round(value / 1000)}k`
 }
 
-function BalanceChart({ schedule }: Props) {
+function BalanceChart({ schedule, frequency }: Props) {
   // Recharts needs numbers, so we parse closing_balance here.
   // Stop at the first period where the balance reaches zero (loan fully repaid).
   const rawData = schedule.map((row) => ({
@@ -46,7 +53,7 @@ function BalanceChart({ schedule }: Props) {
             <XAxis
               dataKey="period"
               tick={{ fontSize: 12 }}
-              label={{ value: 'Period in months', position: 'insideBottom', offset: -4, fontSize: 12 }}
+              label={{ value: X_AXIS_LABEL[frequency], position: 'insideBottom', offset: -4, fontSize: 12 }}
             />
             <YAxis tickFormatter={compactAUD} tick={{ fontSize: 12 }} width={56} />
             <Tooltip

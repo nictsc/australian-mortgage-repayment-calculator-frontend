@@ -138,7 +138,7 @@ function CalculatorPage() {
               )}
 
               {view === 'graph' ? (
-                <BalanceChart schedule={result.schedule} />
+                <BalanceChart schedule={result.schedule} frequency={result.repayment_frequency} />
               ) : (
                 <ScheduleTable
                   schedule={result.schedule}
