@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type {
   CalculateRequest,
   RateType,
@@ -37,8 +37,8 @@ const INITIAL: FormState = {
 interface Props {
   onSubmit: (request: CalculateRequest) => void
   loading: boolean
-  // Field errors returned by the backend (source of truth), merged with ours.
   serverErrors?: FieldErrors
+  initialValues?: CalculateRequest
 }
 
 // Client-side validation mirroring the backend rules. The server still has the
@@ -84,9 +84,31 @@ function validate(state: FormState, hasFixed: boolean, showOffset: boolean): Fie
   return errors
 }
 
-function CalculatorForm({ onSubmit, loading, serverErrors }: Props) {
-  const [state, setState] = useState<FormState>(INITIAL)
+function requestToFormState(r: CalculateRequest): FormState {
+  return {
+    loan_amount: String(r.loan_amount),
+    annual_rate: String(r.annual_rate),
+    rate_type: r.rate_type,
+    repayment_type: r.repayment_type,
+    repayment_frequency: r.repayment_frequency,
+    loan_term_years: String(r.loan_term_years),
+    fixed_rate_period_years: String(r.fixed_rate_period_years ?? '3'),
+    revert_rate: String(r.revert_rate ?? '7.0'),
+    offset_amount: String(r.offset_amount ?? '0'),
+  }
+}
+
+function CalculatorForm({ onSubmit, loading, serverErrors, initialValues }: Props) {
+  const [state, setState] = useState<FormState>(
+    initialValues ? requestToFormState(initialValues) : INITIAL
+  )
   const [clientErrors, setClientErrors] = useState<FieldErrors>({})
+
+  useEffect(() => {
+    if (initialValues) {
+      setState(requestToFormState(initialValues))
+    }
+  }, [initialValues])
 
   // Business rules drive which fields are visible.
   const hasFixed = state.rate_type === 'fixed' || state.repayment_type === 'interest_only'

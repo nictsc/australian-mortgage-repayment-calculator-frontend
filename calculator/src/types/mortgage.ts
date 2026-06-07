@@ -85,6 +85,35 @@ export interface CalculateResponse {
   schedule: ScheduleRow[]
 }
 
+// --- Saved scenario (stored in backend, linked to Auth0 user) ---
+// The backend stores loan inputs as a `splits` array; we read splits[0] as the inputs.
+export interface ScenarioSplit {
+  id: number
+  order: number
+  loan_amount: string
+  annual_rate: string
+  rate_type: RateType
+  repayment_type: RepaymentType
+  repayment_frequency: RepaymentFrequency
+  loan_term_years: number
+  fixed_rate_period_years: number | null
+  revert_rate: string | null
+  offset_amount: string
+}
+
+export interface Scenario {
+  id: number
+  name: string
+  splits: ScenarioSplit[]
+  created_at: string // ISO 8601
+}
+
+// The backend expects `loan` (not `inputs`) for the calculator input fields.
+export interface CreateScenarioRequest {
+  name: string
+  loan: CalculateRequest
+}
+
 // How many repayment periods occur per year for each frequency.
 // Handy for both the calculator UI and the schedule-aggregation utility.
 export const PERIODS_PER_YEAR: Record<RepaymentFrequency, number> = {
