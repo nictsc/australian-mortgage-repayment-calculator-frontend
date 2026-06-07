@@ -24,10 +24,16 @@ function compactAUD(value: number): string {
 
 function BalanceChart({ schedule }: Props) {
   // Recharts needs numbers, so we parse closing_balance here.
-  const data = schedule.map((row) => ({
+  // Stop at the first period where the balance reaches zero (loan fully repaid).
+  const rawData = schedule.map((row) => ({
     period: row.period,
     balance: toNumber(row.closing_balance),
   }))
+  const zeroIdx = rawData.findIndex((d) => d.balance <= 0)
+  const data =
+    zeroIdx === -1
+      ? rawData
+      : [...rawData.slice(0, zeroIdx), { ...rawData[zeroIdx], balance: 0 }]
   const transitions = findPhaseTransitions(schedule)
 
   return (
