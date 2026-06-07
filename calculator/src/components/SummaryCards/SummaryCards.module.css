@@ -1,0 +1,81 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-beige-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.cardLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cardValue {
+  margin-top: var(--space-2);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-cobalt-dark);
+}
+
+.sub {
+  margin-top: var(--space-1);
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+.sensitivity {
+  margin-top: var(--space-4);
+  background: var(--color-cobalt-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.sensitivityTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-cobalt-dark);
+  margin-bottom: var(--space-3);
+}
+
+.sensitivityRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.sensitivityCell .rate {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+.sensitivityCell .amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-cobalt-dark);
+}
+
+.offset {
+  margin-top: var(--space-4);
+  border: 1px dashed var(--color-success);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-success);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
