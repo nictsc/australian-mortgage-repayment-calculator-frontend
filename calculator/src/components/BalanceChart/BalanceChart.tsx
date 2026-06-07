@@ -46,7 +46,7 @@ function BalanceChart({ schedule }: Props) {
             <XAxis
               dataKey="period"
               tick={{ fontSize: 12 }}
-              label={{ value: 'Period', position: 'insideBottom', offset: -4, fontSize: 12 }}
+              label={{ value: 'Period in months', position: 'insideBottom', offset: -4, fontSize: 12 }}
             />
             <YAxis tickFormatter={compactAUD} tick={{ fontSize: 12 }} width={56} />
             <Tooltip
