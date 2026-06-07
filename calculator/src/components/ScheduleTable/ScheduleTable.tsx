@@ -48,7 +48,7 @@ function ScheduleTable({ schedule, frequency }: Props) {
               {schedule.map((row) => (
                 <tr key={row.period}>
                   <td>{row.period}</td>
-                  <td className={styles.phase}>{row.phase.replace('_', ' ')}</td>
+                  <td className={styles.phase}>{row.phase?.replace('_', ' ') ?? ''}</td>
                   <td className="figure">{formatAUD(row.principal)}</td>
                   <td className="figure">{formatAUD(row.interest)}</td>
                   <td className="figure">{formatAUD(row.closing_balance)}</td>

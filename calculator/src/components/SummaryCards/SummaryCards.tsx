@@ -1,5 +1,5 @@
 import type { CalculateResponse } from '../../types/mortgage'
-import { formatAUD, formatPercent } from '../../utils/money'
+import { formatAUD } from '../../utils/money'
 import styles from './SummaryCards.module.css'
 
 interface Props {
